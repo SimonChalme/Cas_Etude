@@ -19,6 +19,8 @@ public class Control extends HttpServlet {
     private int currentId = 0;
     private DaoManager daoManager = new DaoManager();
 
+    private String idIntervention = "";
+
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
 
@@ -52,6 +54,13 @@ public class Control extends HttpServlet {
                     ArrayList<Patient> ListePatients = daoManager.getPatientsByMedId(currentId);
                     PersonelDeSoin med = new PersonelDeSoin(currentId, name, prenom, occupe, ListePatients);
                     UserManager.getInstance().setCurrentMedecin(med);
+                }
+
+                if("secouriste".equals(role)){
+                    System.out.println("je suis un secouriste");
+                    Boolean occupe = daoManager.getOccupeByNomAndPassword(name, password);
+                    idIntervention = daoManager.getIdInterventionByNomAndPassword(name, password);
+
                 }
                 System.out.println(currentId);
                 vueFinale = role+".jsp";
@@ -97,7 +106,11 @@ public class Control extends HttpServlet {
             String prenom = request.getParameter("prenom");
             String etat = request.getParameter("etat");
             daoManager.addPatient(Integer.parseInt(id), nom, prenom, etat);
+            daoManager.supVictimeMission(idIntervention);
             UserManager.getInstance().setListeVictimes(daoManager.getVictimes());
+            if(daoManager.getNbVictimesMission(idIntervention) == 0){
+                daoManager.liberSecouristes(idIntervention);
+            }
             vueFinale = "secouriste.jsp";
         }
 
@@ -139,9 +152,9 @@ public class Control extends HttpServlet {
 
         if(action.equals("affecter")){
             String id = request.getParameter("libre");
-            String nomMission = request.getParameter("nom");
-            daoManager.updateSecouristeMission(nomMission);
-            daoManager.affecterSecouriste(id);
+            String idMission = request.getParameter("id");
+            daoManager.updateSecouristeMission(idMission);
+            daoManager.affecterSecouriste(id, idMission);
             vueFinale = "admin.jsp";
         }
 

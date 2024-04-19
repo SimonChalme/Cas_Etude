@@ -3,7 +3,6 @@ package utilisateur.DAO;
 import utilisateur.model.Mission;
 import utilisateur.model.Patient;
 import utilisateur.model.Secouristes;
-import utilisateur.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -375,7 +374,7 @@ public class DaoManager {
 
     public void updateSecouristeMission(String nom) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Mission SET currNbSecoursite = currNbSecoursite + 1 WHERE nomMission= ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Mission SET currNbSecoursite = currNbSecoursite + 1 WHERE idMission= ?");
             preparedStatement.setString(1, nom);
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -385,13 +384,79 @@ public class DaoManager {
         }
     }
 
-    public void affecterSecouriste(String id) {
+    public void affecterSecouriste(String id, String idMission) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET occupe = 'oui' WHERE idUser = ?");
-            preparedStatement.setInt(1, Integer.parseInt(id));
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET occupe = 'oui', idintervention=? WHERE idUser = ?");
+            preparedStatement.setInt(1, Integer.parseInt(idMission));
+            preparedStatement.setInt(2, Integer.parseInt(id));
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
+        } catch (Exception e) {
+            log.severe( e.getClass().getName() + ": " + e.getMessage() );
+        }
+    }
+
+    public String getIdInterventionByNomAndPassword(String name, String password) {
+        String idIntervention = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE nom = ? AND motdepasse = ?");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                idIntervention = resultSet.getString("idintervention");
+                System.out.println("utilisateur trouvé");
+            }
+            else {
+                System.out.println("pas d'utilisateur trouvé"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (Exception e) {
+            log.severe( e.getClass().getName() + ": " + e.getMessage() );
+        }
+        return idIntervention;
+    }
+
+    public void supVictimeMission(String idIntervention) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Mission SET nbVictimes = nbVictimes - 1 WHERE idMission = ?");
+            preparedStatement.setInt(1, Integer.parseInt(idIntervention));
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            log.severe( e.getClass().getName() + ": " + e.getMessage() );
+        }
+    }
+
+    public int getNbVictimesMission(String idIntervention) {
+        int nbVictimes = 0;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Mission WHERE idMission = ?");
+            preparedStatement.setInt(1, Integer.parseInt(idIntervention));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                nbVictimes = resultSet.getInt("nbVictimes");
+                System.out.println("mission trouvée");
+            }
+            else {
+                System.out.println("pas de mission trouvée"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
+            }
+            resultSet.close();
+            preparedStatement.close();
+        } catch (Exception e) {
+            log.severe( e.getClass().getName() + ": " + e.getMessage() );
+        }
+        return nbVictimes;
+    }
+
+    public void liberSecouristes(String idIntervention) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET occupe = 'non', idintervention = 0 WHERE idintervention = ?");
+            preparedStatement.setInt(1, Integer.parseInt(idIntervention));
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
         } catch (Exception e) {
             log.severe( e.getClass().getName() + ": " + e.getMessage() );
         }

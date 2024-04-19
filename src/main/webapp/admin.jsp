@@ -104,7 +104,7 @@
                     }
                 %>
             </select>
-            nom mission: <input type="text" name="nom" id="nom">
+            id mission: <input type="text" name="id" id="id">
             <input type="submit" name="action" value="affecter" class="btn btn-primary">
         </form>
 
