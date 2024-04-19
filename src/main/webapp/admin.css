@@ -1,0 +1,21 @@
+.conteneur-1,
+.conteneur-2,
+.conteneur-3,
+.conteneur-4 {
+    width: 90%; /* largeur du conteneur en pourcentage */
+    max-width: 1200px; /* largeur maximale du conteneur */
+    margin: 30px 20px; /* marge verticale de 50px et marge horizontale automatique pour centrer le conteneur */
+    padding: 30px; /* marge intérieure de 30px */
+    background-color: #fff;
+    height: 500px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1{
+    font-size: 20px;
+}
+
+.conteneur-1{
+    height: 100px;
+}
