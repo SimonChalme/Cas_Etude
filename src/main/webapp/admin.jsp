@@ -28,9 +28,9 @@
     <form  method="get" action="./Control">
         Nouvel utilisateur
         id :<input type="text" name="id" id="cid" pattern="[0-9]+" min="0">
-        nom : <input type="text" name="nom" id="nom">
-        prenom : <input type="text" name="prenom" id="prenom">
-        mdp : <input type="text" name="mdp" id="mdp">
+        nom : <input type="text" name="nom" id="nom" required>
+        prenom : <input type="text" name="prenom" id="prenom" required>
+        mdp : <input type="text" name="mdp" id="mdp" required>
         role : <select name="role" id="role" required>
         <option value="admin">admin</option>
         <option value="logistique">logistique</option>
