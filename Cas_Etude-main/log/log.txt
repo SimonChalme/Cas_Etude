@@ -1,0 +1,15 @@
+DEBUG   2024-03-08 16:01:00,572 [http-nio-8080-exec-8] To_Do_Liste  - Add element : ezaezae
+DEBUG   2024-03-08 16:03:25,158 [http-nio-8080-exec-2] To_Do_Liste  - Add element : a
+DEBUG   2024-03-08 16:03:27,170 [http-nio-8080-exec-3] To_Do_Liste  - Add element : b
+DEBUG   2024-03-08 16:03:29,182 [http-nio-8080-exec-4] To_Do_Liste  - Add element : c
+DEBUG   2024-03-08 16:04:49,868 [http-nio-8080-exec-8] To_Do_Liste  - Add element : alors en fait l'apprentissage supervisé c'est quand on fait un réseau de neurone qui dit feur
+DEBUG   2024-03-15 14:28:07,905 [http-nio-8080-exec-10] To_Do_Liste  - Add element : ratio
+DEBUG   2024-03-15 14:31:38,939 [http-nio-8080-exec-9] To_Do_Liste  - Add element : ee
+DEBUG   2024-03-15 14:33:23,590 [http-nio-8080-exec-9] To_Do_Liste  - Add element : élément
+DEBUG   2024-03-15 14:34:01,539 [http-nio-8080-exec-10] To_Do_Liste  - Add element : eéeé&
+DEBUG   2024-03-15 14:35:15,074 [http-nio-8080-exec-9] To_Do_Liste  - Add element : eazeaz
+DEBUG   2024-03-15 14:40:49,904 [http-nio-8080-exec-9] To_Do_Liste  - Add element : zaeae
+DEBUG   2024-03-15 14:41:38,896 [http-nio-8080-exec-8] To_Do_Liste  - Add element : eases
+DEBUG   2024-03-15 14:41:50,414 [http-nio-8080-exec-9] To_Do_Liste  - Add element : zeta
+DEBUG   2024-03-15 14:42:43,945 [http-nio-8080-exec-9] To_Do_Liste  - Add element : eazeaze
+DEBUG   2024-03-17 19:50:11,774 [http-nio-8080-exec-9] To_Do_Liste  - Add element : ajout
