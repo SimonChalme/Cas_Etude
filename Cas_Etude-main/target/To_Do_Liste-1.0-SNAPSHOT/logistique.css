@@ -1,0 +1,36 @@
+.conteneur-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.conteneur-med-1 {
+    width: 1400px;
+    margin: 50px auto; /* centrer le conteneur avec une marge verticale de 50px */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.conteneur-enfant {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    width: 1400px; /* définir une largeur maximale */
+    margin: 15px auto; /* centrer le conteneur avec une marge verticale de 50px */
+}
+
+.conteneur-med-2,
+.conteneur-med-3 {
+    width: calc(50% - 20px);
+    height: 500px; /* définir une hauteur */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1{
+    font-size: 20px;
+}
