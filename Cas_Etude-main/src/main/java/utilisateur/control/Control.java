@@ -15,6 +15,7 @@ import utilisateur.model.PersonelDeSoin;
 import utilisateur.model.User;
 import utilisateur.model.UserManager;
 
+//Test des commentaire pour commit
 @WebServlet(name = "Control", value = "/Control")
 public class Control extends HttpServlet {
     private int currentId = 0;
