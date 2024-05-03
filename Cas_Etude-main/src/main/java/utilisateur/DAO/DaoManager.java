@@ -12,6 +12,7 @@ public class DaoManager {
     private static final Logger log = Logger.getLogger(DaoManager.class.getName());
     private Connection connection;
 
+    // Connexion à la base de données, vérification des du succès de la connexion et création des tables si elles n'existent pas
     public DaoManager() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -25,6 +26,7 @@ public class DaoManager {
         }
     }
 
+    // Création de la table user
     private void createDatabase() {
         try {
             Statement stmt = connection.createStatement();
@@ -36,6 +38,7 @@ public class DaoManager {
         }
     }
 
+    // Création de la table patient
     private void createPatientbase(){
         try {
             Statement stmt = connection.createStatement();
@@ -47,6 +50,7 @@ public class DaoManager {
         }
     }
 
+    // Création de la table mission
     private void createMissionbase(){
         try {
             Statement stmt = connection.createStatement();
@@ -58,7 +62,7 @@ public class DaoManager {
         }
     }
 
-
+    // Récupération de l'utilisateur par son nom et son mot de passe, renvoie le role afin de redirigr vers le bon jsp au moment de la connexion
     public String getUtilisateurByNomAndPassword(String nom, String password) {
         String role = null;
         try {
@@ -68,7 +72,7 @@ public class DaoManager {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 role = resultSet.getString("role");
-                System.out.println("utilisateur trouvé");
+                System.out.println("utilisateur trouvé"); // vériier si l'utilisateur a été trouvé
             }
             else {
                 System.out.println("pas d'utilisateur trouvé"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
@@ -81,6 +85,7 @@ public class DaoManager {
         return role;
     }
 
+    // Récupération de l'id de l'utilisateur par son nom et son mot de passe, pour générer la page de connexion
     public int getIdByNomAndPassword(String nom, String password) {
         int id = 0;
         try {
@@ -90,7 +95,7 @@ public class DaoManager {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 id = resultSet.getInt("idUser");
-                System.out.println("utilisateur trouvé");
+                System.out.println("utilisateur trouvé"); // vérifier que l'utilisateur a bien été trouvé
             }
             else {
                 System.out.println("pas d'utilisateur trouvé"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
@@ -103,6 +108,7 @@ public class DaoManager {
         return id;
     }
 
+    // Ajout d'utilisateur dans la base de données
     public void addUtilisateur(int i, String nom, String prenom, String mdp, String role) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO user (idUser, nom, prenom, motdepasse, role, occupe, localisation, idintervention) VALUES (?,?,?,?,?,?,?,?)");
@@ -121,6 +127,7 @@ public class DaoManager {
         }
     }
 
+    // Supression d'utilisateur dans la base de données à partir de son id
     public void supUtilisateur(int i) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM user WHERE idUser = ?");
@@ -132,6 +139,7 @@ public class DaoManager {
         }
     }
 
+    // Mise à jour des utilisateur de la base de donnée en fonction de leur id
     public void updateUtilisateur(int i, String nom, String prenom, String mdp, String role) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET nom = ?, prenom = ?, motdepasse = ?, role = ? WHERE idUser = ?");
@@ -147,6 +155,7 @@ public class DaoManager {
         }
     }
 
+    // Ajout d'un patient dans la table patient
     public void addPatient(int i, String nom, String prenom, String etat) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO patient (idPatient, nom, prenom, etatDeGravite, idMed) VALUES (?,?,?,?,?)");
@@ -162,7 +171,7 @@ public class DaoManager {
         }
     }
 
-
+    // Mise à jour de l'état d'occupation dans la base de données en fonction de l'id de l'utilisateur
     public void majOccupe(int currentId, String etat) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET occupe = ? WHERE idUser = ?");
@@ -175,7 +184,7 @@ public class DaoManager {
         }
     }
 
-
+    // récupération du rôle de l'utilisateur en fonction de son id
     public String getRoleById(int currentId) {
         String role = null;
         try {
@@ -184,7 +193,7 @@ public class DaoManager {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 role = resultSet.getString("role");
-                System.out.println("utilisateur trouvé");
+                System.out.println("utilisateur trouvé"); // vérifier que l'utilisateur a bien été trouvé
             }
             else {
                 System.out.println("pas d'utilisateur trouvé"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
@@ -197,6 +206,7 @@ public class DaoManager {
         return role;
     }
 
+    // récupération du prénom de l'utilisateur en fonction de son nom et de son mot de passe
     public String getPrenomByNomAndPassword(String name, String password) {
         String prenom = null;
         try {
@@ -206,7 +216,7 @@ public class DaoManager {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 prenom = resultSet.getString("prenom");
-                System.out.println("utilisateur trouvé");
+                System.out.println("utilisateur trouvé"); // vérifier que l'utilisateur a bien été trouvé
             }
             else {
                 System.out.println("pas d'utilisateur trouvé"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
@@ -218,6 +228,8 @@ public class DaoManager {
         }
         return prenom;
     }
+
+    // récupération de l'occupation de l'utilisateur en fonction de son nom
     public String getOccupeByNom(String name) {
         String occupe = null;
         try {
@@ -239,6 +251,7 @@ public class DaoManager {
         return occupe;
     }
 
+    // récupération de l'occupation de l'utilisateur en fonction de son nom et de son mot de passe
     public Boolean getOccupeByNomAndPassword(String name, String password) {
         Boolean occupe = null;
         try {
@@ -261,6 +274,7 @@ public class DaoManager {
         return occupe;
     }
 
+    // construction de la liste de patient du médecin connecté à l'application
     public ArrayList<Patient> getPatientsByMedId(int currentId) {
         ArrayList<Patient> patients = new ArrayList<Patient>();
         try {
@@ -278,6 +292,7 @@ public class DaoManager {
         return patients;
     }
 
+    // récupération de la liste des patients non affectés à un médecin (cas ou idMed= 0)
     public ArrayList<Patient> getVictimes() {
         ArrayList<Patient> patients = new ArrayList<Patient>();
         int MAX_PATIENTS = 10;
@@ -297,6 +312,7 @@ public class DaoManager {
         return patients;
     }
 
+    // affection d'un patient à un médecin en liant les id
     public void choixMedecin(int i, int currentId) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE patient SET idMed = ? WHERE idPatient = ?");
@@ -309,6 +325,7 @@ public class DaoManager {
         }
     }
 
+    // récupération du patient en fonction de son id
     public Patient getPatientById(int i) {
         Patient patient = null;
         try {
@@ -330,6 +347,7 @@ public class DaoManager {
         return patient;
     }
 
+    // suppression d'un patient en fonction de son id
     public void finCharge(int i) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM patient WHERE idPatient = ?");
@@ -341,6 +359,7 @@ public class DaoManager {
         }
     }
 
+    // ajout d'une nouvelle mission dans la base de données
     public void addMission(String id, String nom, String localisation, int i, int i1) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Mission (idMission, nomMission, localisation, nbVictimes, nbSecoursite, currNbSecoursite) VALUES (?,?,?,?,?,?)");
@@ -357,6 +376,7 @@ public class DaoManager {
         }
     }
 
+    // récupération de la liste des missions en cours (celle pour lesquelles il reste des victimes à trouver)
     public ArrayList<Mission> getMissions() {
         ArrayList<Mission> missions = new ArrayList<Mission>();
         try {
@@ -373,6 +393,7 @@ public class DaoManager {
         return missions;
     }
 
+    // récupération des secouristes libres (pour créer une liste parmi laquel l'admin peut choisir pour les affectations aux missions)
     public ArrayList<Secouristes> getSecouristesLibres() {
         ArrayList<Secouristes> secouristes = new ArrayList<Secouristes>();
         try {
@@ -390,7 +411,7 @@ public class DaoManager {
     }
 
 
-
+    // mise à jiur d'un nombre de secouriste sur une mission
     public void updateSecouristeMission(String nom) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Mission SET currNbSecoursite = currNbSecoursite + 1 WHERE idMission= ?");
@@ -403,6 +424,7 @@ public class DaoManager {
         }
     }
 
+    // affectation d'un secoursite à une mission, son id de mission est mis à jour et il passe dans l'état occupé
     public void affecterSecouriste(String id, String idMission) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET occupe = 'oui', idintervention=? WHERE idUser = ?");
@@ -416,6 +438,7 @@ public class DaoManager {
         }
     }
 
+    // récupértion de l'id de l'intervention en fonction du nom et du mot de passe de l'utilisateur (pour connaitre la mission sur laquelle le secoursite est présent au moment de sa connexion)
     public String getIdInterventionByNomAndPassword(String name, String password) {
         String idIntervention = null;
         try {
@@ -438,6 +461,7 @@ public class DaoManager {
         return idIntervention;
     }
 
+    // mise à jour du nombre de victimes restante à trouver sur une mission
     public void supVictimeMission(String idIntervention) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Mission SET nbVictimes = nbVictimes - 1 WHERE idMission = ?");
@@ -449,6 +473,7 @@ public class DaoManager {
         }
     }
 
+    // récupération du nombre de victimes sur une mission
     public int getNbVictimesMission(String idIntervention) {
         int nbVictimes = 0;
         try {
@@ -457,7 +482,7 @@ public class DaoManager {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 nbVictimes = resultSet.getInt("nbVictimes");
-                System.out.println("mission trouvée");
+                System.out.println("mission trouvée"); // vérifier que la mission a bien été trouvée
             }
             else {
                 System.out.println("pas de mission trouvée"); // ajouter un message pour indiquer qu'aucun utilisateur n'a été trouvé
@@ -470,6 +495,7 @@ public class DaoManager {
         return nbVictimes;
     }
 
+    // mise à jour de l'état d'occupation des secoursite affecté à la mission à non quand cette derière se finie
     public void liberSecouristes(String idIntervention) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET occupe = 'non', idintervention = 0 WHERE idintervention = ?");
