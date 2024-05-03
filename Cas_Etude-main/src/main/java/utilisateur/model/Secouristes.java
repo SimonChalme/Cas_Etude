@@ -1,5 +1,6 @@
 package utilisateur.model;
 
+// création de l'objet secoursite avec ses attributs getter et setter
 public class Secouristes extends User {
     private Boolean occupé;
     String position;

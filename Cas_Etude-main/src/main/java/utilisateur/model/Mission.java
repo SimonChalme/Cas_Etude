@@ -1,5 +1,6 @@
 package utilisateur.model;
 
+// création de l'objet mission avec ses attributs getter et setter
 public class Mission {
     private int idMission;
     private String nomMission;

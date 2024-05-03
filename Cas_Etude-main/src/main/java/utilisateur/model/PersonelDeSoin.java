@@ -2,6 +2,7 @@ package utilisateur.model;
 
 import java.util.ArrayList;
 
+// création de l'objet personel de soin avec ses attributs getter et setter
 public class PersonelDeSoin extends User{
     private Boolean occupé;
     private ArrayList<Patient> patients;

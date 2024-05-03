@@ -1,5 +1,6 @@
 package utilisateur.model;
 
+// création de l'objet personel de logistique avec ses attributs getter et setter
 public class PersonelLogistique extends User{
     private Boolean occupé;
 

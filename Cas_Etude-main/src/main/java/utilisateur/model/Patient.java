@@ -1,5 +1,6 @@
 package utilisateur.model;
 
+// création de l'objet patient avec ses attributs getter et setter
 public class Patient {
     private int id;
     private String nom;

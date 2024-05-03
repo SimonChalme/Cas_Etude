@@ -1,5 +1,6 @@
 package utilisateur.model;
 
+// création de la classe ancètre User avec ses attributs getter et setter
 public class User {
     private int id;
     private String nom;
